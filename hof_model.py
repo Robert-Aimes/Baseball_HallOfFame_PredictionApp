@@ -8,13 +8,13 @@ from sklearn.metrics import accuracy_score, classification_report
 
 #read in datasets
 #former pitchers
-pitchers = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\former_pitchers_prepped.csv')
+pitchers = pd.read_csv('./data/former_pitchers_prepped.csv')
 #current pitchers
-current_pitchers = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\current_pitchers_prepped.csv')
+current_pitchers = pd.read_csv('./data/current_pitchers_prepped.csv')
 #former batters
-bdata = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\former_batters_prepped.csv')
+bdata = pd.read_csv('./data/former_batters_prepped.csv')
 #current batters
-current_batting_player_data = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\current_batters_prepped.csv')
+current_batting_player_data = pd.read_csv('./data/current_batters_prepped.csv')
 
 
 #Pither model creation
