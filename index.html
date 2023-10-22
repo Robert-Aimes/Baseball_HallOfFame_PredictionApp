@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Web App</title>
+    <link rel="stylesheet" type="text/css" href="./styles.css"  />
+</head>
+<body>
+
+<div class="container">
+    <img src="{{ url_for('static', filename='hof_logo.png') }}" alt="Hall of Fame Logo" class="logo">
+    
+    <div class="player-selection">
+        <h3>Select Player Type:</h3>
+        <label><input type="radio" name="player_type" value="pitcher"> Pitcher</label>
+        <label><input type="radio" name="player_type" value="batter"> Batter</label>
+    </div>
+
+    <div class="player-dropdown">
+        <h3>Select Player:</h3>
+        <select id="player_dropdown">
+            <!-- You can populate this dropdown using JS based on the player type -->
+        </select>
+    </div>
+
+    <button onclick="predictHallOfFame()" class="predict-btn">Predict</button>
+
+    <div class="prediction-result">
+        <h3>Prediction:</h3>
+        <p id="prediction_result">---</p>
+    </div>
+</div>
+
+<script>
+    function predictHallOfFame() {
+        const playerType = document.querySelector('input[name="player_type"]:checked').value;
+        const playerId = document.getElementById('player_dropdown').value;
+
+        // Send POST request to Flask backend
+        fetch('/predict', {
+            method: 'POST',
+            body: new URLSearchParams({
+                'player_type': playerType,
+                'player_id': playerId
+            }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('prediction_result').textContent = data.result;
+        });
+    }
+</script>
+
+</body>
+</html>
