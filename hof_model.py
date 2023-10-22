@@ -79,7 +79,6 @@ print(classification_report(y_test, y_pred))
 drop_columns = ['Full Name', 'birthYear', 'birthMonth', 'birthDay', 'birthCountry', 
                 'birthState', 'birthCity', 'nameFirst', 'nameLast', 'nameGiven', 
                 'debut', 'finalGame', 'retroID', 'bbrefID']
-pitchers = pitchers.drop(columns=drop_columns)
 # 1. Drop unnecessary columns, including 'inducted'
 current_pitchers = current_pitchers.drop(columns=drop_columns + ['inducted'])
 
