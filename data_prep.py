@@ -9,9 +9,9 @@ from sklearn.metrics import accuracy_score, classification_report
 
 
 #load datasets into dataframes
-pitchers = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\pitchers_official.csv')
+pitchers = pd.read_csv('./data/pitchers_official.csv')
 
-batters = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\batting_official.csv')
+batters = pd.read_csv('./data/batting_official.csv')
 
 #Prepping former pitcher data for model and feature engineering
 # Convert the columns to datetime format with errors='coerce'
@@ -52,13 +52,13 @@ for column in columns_to_average:
 pitchers.drop('Years Played', axis=1, inplace=True)
 
 #write out prepped data
-pitchers.to_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\former_pitchers_prepped.csv', index=False)
+pitchers.to_csv('./data/former_pitchers_prepped.csv', index=False)
 
 
 #Prepping current pitchers for prediction
 #Preidction model with current pitchers. Reads in csv and preps it for the model prediction
 
-current_pitchers = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\pitching_current_players.csv')
+current_pitchers = pd.read_csv('./data/pitching_current_players.csv')
 
 # Convert the columns to datetime format with errors='coerce'
 current_pitchers['finalGame'] = pd.to_datetime(current_pitchers['finalGame'], errors='coerce')
@@ -90,7 +90,7 @@ for column in columns_to_average:
     current_pitchers[new_column_name] = current_pitchers[column] / current_pitchers["Years Played"]
 
 #write out prepped data
-current_pitchers.to_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\current_pitchers_prepped.csv', index=False)
+current_pitchers.to_csv('./data/current_pitchers_prepped.csv')
 
 
 
@@ -125,12 +125,12 @@ bdata['hr_per_year'] = bdata['HR'] / bdata['num_years']
 bdata.drop('num_years', axis=1, inplace=True)
 
 #write out prepped data
-bdata.to_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\former_batters_prepped.csv', index=False)
+bdata.to_csv('./data/former_batters_prepped.csv')
 
 #Prep current batters for prediction
 # Load the current player data
 # Assuming the data is in a CSV file:
-current_batting_player_data = pd.read_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\batting_current_players.csv')
+current_batting_player_data = pd.read_csv('./data/batting_current_players.csv')
 
 # Replace '#DIV/0!' with NaN (Not a Number)
 current_batting_player_data.replace('#DIV/0!', float('nan'), inplace=True)
@@ -160,4 +160,4 @@ current_batting_player_data['rbis_per_year'] = current_batting_player_data['RBI'
 current_batting_player_data['hr_per_year'] = current_batting_player_data['HR'] / current_batting_player_data['num_years']
 
 #write out prepped file
-current_batting_player_data.to_csv(r'C:\Users\robai\OneDrive\Documents\MLB datasets\current_batters_prepped.csv', index=False)
+current_batting_player_data.to_csv('./data/current_batters_prepped.csv')
