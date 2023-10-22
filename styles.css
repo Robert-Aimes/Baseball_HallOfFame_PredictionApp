@@ -1,0 +1,45 @@
+body {
+    background-color: #007BFF; /* Nice blue background */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    max-width: 100%;
+}
+
+.player-selection, .player-dropdown, .prediction-result {
+    margin-bottom: 20px;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+.predict-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.predict-btn:hover {
+    background-color: #0056b3;
+}
