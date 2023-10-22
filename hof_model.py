@@ -75,6 +75,9 @@ print(classification_report(y_test, y_pred))
 
 #Current Pitcher model prediction
 
+# Store the playerID and Full Name before preprocessing
+player_identifiers = current_pitchers[['playerID', 'Full Name']]
+
 # Drop non-numeric columns or columns you feel are not necessary for the prediction:
 drop_columns = ['Full Name', 'birthYear', 'birthMonth', 'birthDay', 'birthCountry', 
                 'birthState', 'birthCity', 'nameFirst', 'nameLast', 'nameGiven', 
@@ -134,6 +137,9 @@ induction_probabilities = current_probabilities[:, 1]
 
 # You can then decide a threshold, let's say 0.5 (50%)
 current_predictions = (induction_probabilities >= 0.5).astype(int)
+
+# After making predictions, add 'Full Name' back
+current_pitchers = pd.merge(current_pitchers, player_identifiers, on='playerID')
 
 # Add probabilities and predictions back to the 'current_pitchers' DataFrame
 current_pitchers['induction_probability'] = induction_probabilities
@@ -215,3 +221,19 @@ importances = b_clf.feature_importances_
 features = b_features.columns
 importance_df = pd.DataFrame({'Feature': features, 'Importance': importances})
 print(importance_df.sort_values(by='Importance', ascending=False))
+
+# Add Position columns to each DataFrame
+current_pitchers['Position'] = 'Pitcher'
+current_batting_player_data['Position'] = 'Batter'
+
+# Combining DataFrames 
+all_players = pd.concat([current_pitchers, current_batting_player_data], ignore_index=True)
+
+# Convert induction_probability to percentage format and add to the dataframe
+all_players['HOF Percent Chance'] = (all_players['induction_probability'] * 100).astype(str) + '%'
+
+# write to CSV
+all_players[['playerID', 'Full Name', 'Position', 'induction_probability', 'predicted_induction', 'HOF Percent Chance']].to_csv('./data/hof_predictions.csv', index=False)
+
+
+
