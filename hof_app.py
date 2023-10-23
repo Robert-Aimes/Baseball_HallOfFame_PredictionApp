@@ -3,6 +3,8 @@ import pandas as pd
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 
+# Load the CSV file into a global DataFrame
+data = pd.read_csv('./data/hof_predictions.csv')
 
 @app.route('/')
 def index():
@@ -10,11 +12,8 @@ def index():
 
 @app.route('/get_players', methods=['GET'])
 def get_players():
-    # Read the CSV file
-    data = pd.read_csv('./data/hof_predictions.csv')
-
-    # Extract player names and IDs
-    players = [{"id": row["playerID"], "name": row["Full Name"]} for _, row in data.iterrows()]
+    # Extract player names, IDs, and types from the global DataFrame
+    players = [{"id": row["playerID"], "name": row["Full Name"], "type": row["Position"]} for _, row in data.iterrows()]
 
     # Return the data as JSON
     return jsonify(players)
@@ -22,15 +21,12 @@ def get_players():
 @app.route('/predict', methods=['POST'])
 def predict():
     # Extract data from the POST request
-    player_type = request.form['player_type']
     player_id = request.form['player_id']
 
-    # Here, you would integrate your machine learning model to get the prediction.
-    # For the sake of this demonstration, I'm returning a placeholder response.
-    # Replace this with your actual model logic.
-    result = "High Chance"
+    # Fetch the corresponding "HOF Percent Chance" for the given player ID
+    hof_chance = data[data["playerID"] == player_id]["HOF Percent Chance"].values[0]
 
-    return jsonify({"result": result})
+    return jsonify({"result": hof_chance})
 
 if __name__ == '__main__':
     app.run(debug=True)
