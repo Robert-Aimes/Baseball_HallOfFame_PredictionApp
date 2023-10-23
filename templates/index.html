@@ -16,10 +16,15 @@
     <img src="{{ url_for('static', filename='hof_logo.png') }}" alt="Hall of Fame Logo" class="logo">
     
     <div class="player-selection">
-        <h3>Select Player Type:</h3>
+        <h3>Select Player Type To Filter:</h3>
         <label><input type="radio" name="player_type" value="pitcher"> Pitcher</label>
         <label><input type="radio" name="player_type" value="batter"> Batter</label>
     </div>
+    
+    <div class="player-search">
+        <h3>Search by Last Name:</h3>
+        <input type="text" id="player_search" placeholder="Enter player's last name">
+    </div>    
 
     <div class="player-dropdown">
         <h3>Select Player:</h3>
@@ -31,53 +36,106 @@
     <button onclick="predictHallOfFame()" class="predict-btn">Predict</button>
 
     <div class="prediction-result">
-        <h3>Prediction:</h3>
+        <h3>Percentage Chance of Hall of Fame Election:</h3>
         <p id="prediction_result">---</p>
+    </div>
+
+    <div class="prediction-note">
+        <p>Note: Predictions are based on players' career average statistics. Players with less tenure that have a higher chance are due to their average performance throughout their early careers. This is not to say their stats will continue on that trend. Utilize further scouting methods to assess the longevity of someone's potential success.</p>
+    </div>
+    <div class="prediction-date-note">
+        <p>Note: The model used for prediction is trained on data up until October 2015. All players listed to choose from are "Current" MLB players as of October 2015 as well. Any player who started their career after that date will not be listed in this current version of the Hall of Fame predictive model.</p>
     </div>
 </div>
 
 <script>
-    // This function fetches player names and IDs and populates the dropdown
-    document.addEventListener("DOMContentLoaded", function() {
-        // Fetch players when the page loads
-        fetch('/get_players')
-        .then(response => response.json())
-        .then(data => {
-            // Get the dropdown
-            const dropdown = document.getElementById('player_dropdown');
+document.addEventListener("DOMContentLoaded", function() {
+    let allPlayers = [];
 
-            // Populate the dropdown with player names
-            data.forEach(player => {
-                const option = document.createElement('option');
-                option.value = player.id;
-                option.textContent = player.name;
-                dropdown.appendChild(option);
-            });
-        });
-    });
-
-    // Your existing predictHallOfFame function remains here
-    function predictHallOfFame() {
-        const playerType = document.querySelector('input[name="player_type"]:checked').value;
-        const playerId = document.getElementById('player_dropdown').value;
-
-        // Send POST request to Flask backend
-        fetch('/predict', {
-            method: 'POST',
-            body: new URLSearchParams({
-                'player_type': playerType,
-                'player_id': playerId
-            }),
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('prediction_result').textContent = data.result;
+    function populateDropdown(filteredPlayers) {
+        const dropdown = document.getElementById('player_dropdown');
+        dropdown.innerHTML = '';
+        filteredPlayers.forEach(player => {
+            const option = document.createElement('option');
+            option.value = player.id;
+            option.textContent = player.name;
+            dropdown.appendChild(option);
         });
     }
+
+    // Function to filter players based on search input
+    function filterPlayers() {
+        const searchQuery = document.getElementById('player_search').value.toLowerCase();
+        const selectedType = document.querySelector('input[name="player_type"]:checked')?.value;
+        
+        let filteredPlayers = allPlayers;
+
+        if (selectedType) {
+            filteredPlayers = allPlayers.filter(player => player.type.toLowerCase() === selectedType);
+        }
+
+        if (searchQuery) {
+            filteredPlayers = filteredPlayers.filter(player => player.name.toLowerCase().includes(searchQuery));
+        }
+
+        populateDropdown(filteredPlayers);
+    }
+
+    // Fetch players when the page loads
+    fetch('/get_players')
+    .then(response => response.json())
+    .then(data => {
+        allPlayers = data;
+        populateDropdown(allPlayers);
+    });
+
+    document.querySelectorAll('input[name="player_type"]').forEach(radio => {
+        radio.addEventListener('change', filterPlayers);
+    });
+
+    // Add event listener to the search box
+    document.getElementById('player_search').addEventListener('input', filterPlayers);
+});
+
+
+
+
+
+    function predictHallOfFame() {
+    const selectedRadio = document.querySelector('input[name="player_type"]:checked');
+    
+    // Check if a radio button is selected
+    if (!selectedRadio) {
+        alert('Please select a player type (Pitcher/Batter) before making a prediction.');
+        return; // Exit the function if no radio button is selected
+    }
+
+    const playerType = selectedRadio.value;
+    const playerId = document.getElementById('player_dropdown').value;
+
+    // Send POST request to Flask backend
+    fetch('/predict', {
+        method: 'POST',
+        body: new URLSearchParams({
+            'player_type': playerType,
+            'player_id': playerId
+        }),
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('prediction_result').textContent = data.result;
+    })
+    .catch(err => {
+        console.error("Error occurred:", err);
+        alert("An error occurred while making the prediction.");
+    });
+}
+
 </script>
 
 </body>
 </html>
+
