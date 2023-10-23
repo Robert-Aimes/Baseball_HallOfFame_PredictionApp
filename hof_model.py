@@ -232,8 +232,67 @@ all_players = pd.concat([current_pitchers, current_batting_player_data], ignore_
 # Convert induction_probability to percentage format and add to the dataframe
 all_players['HOF Percent Chance'] = (all_players['induction_probability'] * 100).astype(str) + '%'
 
-# write to CSV
+# Your existing code to write to CSV
 all_players[['playerID', 'Full Name', 'Position', 'induction_probability', 'predicted_induction', 'HOF Percent Chance']].to_csv('./data/hof_predictions.csv', index=False)
 
 
 
+#Pitching model accuracy
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy for Pitcher model: {accuracy * 100:.2f}%")
+print(classification_report(y_test, y_pred))
+
+#Batting model accuracy
+b_accuracy = accuracy_score(b_y_test, b_y_pred)
+print(f"Accuracy for Batting model: {b_accuracy * 100:.2f}%")
+print(classification_report(b_y_test, b_y_pred))
+
+# Visualization 1: Scatter Plot of Average ERA for all pitchers
+plt.hist(pitchers['Average of ERA'], bins=14, edgecolor="k", alpha=0.7, range=(0,10))
+plt.title('Distribution of ERAs')
+plt.xlabel('ERA')
+plt.ylabel('Count')
+plt.xlim(0, 10)  # Setting the x-axis limits
+plt.grid(axis='y', linestyle='--')
+plt.tight_layout()
+plt.show()
+
+# Visualization 2: Feature Importance for Pitchers
+features = X.columns
+importances = clf.feature_importances_
+indices = np.argsort(importances)[-10:]  # top 10 features
+
+plt.figure(figsize=(10, 6))
+plt.title('Feature Importances for Pitchers')
+plt.barh(range(len(indices)), importances[indices], align='center')
+plt.yticks(range(len(indices)), [features[i] for i in indices])
+plt.xlabel('Relative Importance')
+plt.show()
+
+# Visualization 3: Scatter Plot of Batting Average for all batters
+plt.hist(bdata['AVG'], bins=30, edgecolor='black', alpha=0.7)
+plt.title('Distribution of Batting Average (AVG)')
+plt.xlabel('Batting Average (AVG)')
+plt.ylabel('Number of Players')
+plt.xticks([0.100, 0.200, 0.300, 0.400, 0.500], ['0.100', '0.200', '0.300', '0.400', '0.500'])
+plt.show()
+
+
+# Visualization 4: Feature Importance for Batters
+b_features_importance = b_clf.feature_importances_
+indices_b = np.argsort(b_features_importance)[-10:]  # top 10 features
+
+plt.figure(figsize=(10, 6))
+plt.title('Feature Importances for Batters')
+plt.barh(range(len(indices_b)), b_features_importance[indices_b], align='center')
+plt.yticks(range(len(indices_b)), [b_features.columns[i] for i in indices_b])
+plt.xlabel('Relative Importance')
+plt.show()
+
+# Visualization 5: Probability Distribution for Predicted Hall of Fame Induction
+plt.figure(figsize=(10, 6))
+plt.hist(all_players['induction_probability'], bins=30, edgecolor='k', alpha=0.7)
+plt.title('Probability Distribution for Predicted HOF Induction')
+plt.xlabel('Probability')
+plt.ylabel('Number of Players')
+plt.show()
