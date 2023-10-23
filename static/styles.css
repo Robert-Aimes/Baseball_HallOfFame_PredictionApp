@@ -6,40 +6,74 @@ body {
 }
 
 .container {
-    max-width: 500px;
+    max-width: 600px; /* Increased container width a bit for better spacing */
     margin: 50px auto;
-    padding: 20px;
+    padding: 25px; /* Increased padding for a bit more space inside the container */
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
     display: block;
-    margin: 0 auto 20px auto;
-    max-width: 100%;
+    margin: 0 auto 30px auto; /* Added more space below the logo */
+    max-width: 90%; /* Reduce the logo size a bit for better fit */
 }
 
-.player-selection, .player-dropdown, .prediction-result {
-    margin-bottom: 20px;
+.player-selection, .player-dropdown, .player-search, .prediction-result {
+    margin-bottom: 25px; /* Increased margin-bottom for better spacing */
+    padding: 10px 0; /* Added vertical padding for better spacing */
 }
 
 h3 {
     margin-top: 0;
+    margin-bottom: 10px; /* Added space below the heading */
+    font-weight: bold; /* Made the headings a bit bolder */
+}
+
+input[type="text"], select {
+    padding: 10px; /* Added padding for a better feel */
+    width: 100%; /* To make them stretch across the container */
+    margin-top: 5px; /* Added a little margin at the top */
+    box-sizing: border-box; /* Ensures padding doesn't affect total width */
+    border: 1px solid #aaa; /* Added a subtle border */
+    border-radius: 5px; /* Rounded corners for the input fields */
 }
 
 .predict-btn {
     display: block;
     margin: 0 auto;
-    padding: 10px 20px;
+    padding: 12px 25px; /* Increased padding for a better button size */
     background-color: #007BFF;
     color: #ffffff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-size: 16px; /* Increased font size for better visibility */
+    font-weight: bold; /* Made the button text bolder */
 }
 
 .predict-btn:hover {
     background-color: #0056b3;
+}
+
+.prediction-note {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 0.85em;
+    color: #555;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    text-align: justify;
+}
+
+.prediction-date-note {
+    margin-top: 20px;
+    font-style: italic;
+    font-size: 0.85em;
+    color: #555;
+    border-top: 1px dashed #ddd; /* Using a dashed border for a bit of distinction */
+    padding-top: 10px;
+    text-align: justify;
 }
