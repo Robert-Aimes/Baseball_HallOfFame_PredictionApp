@@ -4,7 +4,8 @@ aiohttp
 aioitertools 
 aiosignal 
 aiosqlite 
-alabaster anyio 
+alabaster 
+anyio 
 appdirs==1.4.4
 argon2-cffi 
 argon2-cffi-bindings 
@@ -45,14 +46,11 @@ comm
 conda 
 conda-build 
 conda-content-trust 
-conda-libmamba-solver 
 conda-pack 
 conda-package-handling 
 conda-repo-cli==1.0.75
 conda-token 
 conda-verify==3.4.2
-conda_index 
-conda_package_streaming 
 constantly==15.1.0
 contourpy 
 cookiecutter 
@@ -112,7 +110,6 @@ isort
 itemadapter 
 itemloaders 
 itsdangerous 
-jaraco.classes 
 jedi 
 jellyfish 
 Jinja2 
@@ -130,8 +127,6 @@ jupyter-server
 jupyter-ydoc 
 jupyter_client 
 jupyter_core 
-jupyter_server_fileid 
-jupyter_server_ydoc 
 jupyterlab 
 jupyterlab-pygments 
 jupyterlab-widgets 
@@ -141,8 +136,6 @@ keyring
 kiwisolver 
 lazy-object-proxy 
 lazy_loader 
-libarchive-c 
-libmambapy 
 linkify-it-py 
 llvmlite 
 lmdb 
@@ -170,7 +163,6 @@ multipledispatch
 multiprocess 
 munkres==1.1.4
 mypy-extensions 
-navigator-updater 
 nbclassic 
 nbclient 
 nbconvert 
@@ -179,7 +171,6 @@ nest-asyncio
 networkx 
 nltk 
 notebook 
-notebook_shim 
 numba 
 numexpr 
 numpy 
@@ -210,7 +201,6 @@ ply==3.11
 poyo 
 prometheus-client 
 prompt-toolkit 
-Protego 
 psutil 
 ptyprocess 
 pure-eval 
@@ -246,8 +236,6 @@ pytest
 python-dateutil 
 python-dotenv 
 python-json-logger 
-python-lsp-black 
-python-lsp-jsonrpc==1.0.0
 python-lsp-server 
 python-slugify 
 python-snappy 
@@ -256,7 +244,6 @@ pytz
 pyviz-comms 
 PyWavelets 
 pywin32==305.1
-pywin32-ctypes 
 pywinpty 
 PyYAML 
 pyzmq 
@@ -265,7 +252,6 @@ qstylizer
 QtAwesome 
 qtconsole 
 QtPy 
-queuelib==1.5.0
 regex 
 requests 
 requests-file 
@@ -275,10 +261,8 @@ rfc3339-validator
 rfc3986-validator 
 rope 
 Rtree 
-ruamel-yaml-conda 
 ruamel.yaml 
 s3fs 
-safetensors 
 scikit-image 
 scikit-learn 
 scikit-learn-intelex==20230426.121932
@@ -287,7 +271,6 @@ Scrapy
 seaborn 
 Send2Trash 
 service-identity 
-sip 
 six 
 smart-open 
 sniffio 
@@ -304,7 +287,6 @@ sphinxcontrib-serializinghtml
 spyder 
 spyder-kernels 
 SQLAlchemy 
-stack-data 
 statsmodels 
 sympy 
 tables 
@@ -329,20 +311,16 @@ tqdm
 traitlets 
 transformers 
 Twisted 
-twisted-iocpsupport 
 typing_extensions 
 tzdata 
-uc-micro-py 
 ujson 
 Unidecode 
 urllib3 
 w3lib 
 watchdog 
 wcwidth 
-webencodings==0.5.1
 websocket-client 
 Werkzeug 
-whatthepatch 
 widgetsnbextension 
 win-inet-pton 
 wrapt 
@@ -350,10 +328,8 @@ xarray
 xlwings 
 xxhash 
 xyzservices 
-y-py 
 yapf 
 yarl 
-ypy-websocket 
 zict 
 zipp 
 zope.interface 
