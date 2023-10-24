@@ -1,6 +1,10 @@
 from flask import Flask, render_template, jsonify, request
 import pandas as pd
 
+import os
+port = int(os.environ.get("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
+
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 # Load the CSV file into a global DataFrame
