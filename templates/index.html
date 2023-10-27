@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ML Web App</title>
+    <title>Hall of Fame Predictor Tool</title>
     <link rel="stylesheet" type="text/css" href="/static/styles.css" />
 
 
@@ -16,13 +16,13 @@
     <img src="{{ url_for('static', filename='hof_logo.png') }}" alt="Hall of Fame Logo" class="logo">
     
     <div class="player-selection">
-        <h3>Select Player Type To Filter:</h3>
+        <h3>Select Player Type To Filter: (Required)</h3>
         <label><input type="radio" name="player_type" value="pitcher"> Pitcher</label>
         <label><input type="radio" name="player_type" value="batter"> Batter</label>
     </div>
     
     <div class="player-search">
-        <h3>Search by Last Name:</h3>
+        <h3>Search by Last Name: (Optional Filter)</h3>
         <input type="text" id="player_search" placeholder="Enter player's last name">
     </div>    
 
